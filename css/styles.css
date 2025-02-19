@@ -67,6 +67,13 @@ ul {
 }
 
 #skills li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2em;  /* Adjust this value based on your needs */
+}
+
+#skills li {
     background-color: var(--background-color);
     padding: 0.5rem 1rem;
     border-radius: 4px;
