@@ -36,6 +36,7 @@ section {
     background: white;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 h2 {
@@ -95,5 +96,18 @@ a:hover {
 
     a {
         color: black;
+    }
+}
+
+/* Add responsive margins */
+@media screen and (max-width: 768px) {
+    section {
+        margin: 1rem;
+        padding: 1rem;
+    }
+
+    #contact ul li {
+        display: block;  /* Stack contact items vertically on mobile */
+        margin-bottom: 0.5rem;
     }
 }
