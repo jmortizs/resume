@@ -1,16 +1,21 @@
+:root {
+    --primary-color: #2c3e50;
+    --secondary-color: #2e81b9;
+    --background-color: #f8f9fa;
+}
+
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
-    color: #333;
+    background-color: var(--background-color);
 }
 
 header {
-    background: #333;
-    color: #fff;
-    padding: 10px 0;
+    background: linear-gradient(150deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    padding: 2rem;
     text-align: center;
 }
 
@@ -25,45 +30,70 @@ header p {
 }
 
 section {
-    padding: 20px;
-    margin: 20px;
-    background: #fff;
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 1rem 2rem;
+    background: white;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 h2 {
-    border-bottom: 2px solid #333;
-    padding-bottom: 5px;
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--secondary-color);
+    padding-bottom: 0.5rem;
 }
 
 ul {
-    list-style: disc inside;
-    padding-left: 20px;
-}
-
-ul li {
-    margin: 10px 0;
-    padding-left: 10px;
-    text-indent: -10px;
+    list-style: none;
+    padding-left: 0;
 }
 
 #contact ul li {
-    display: flex;
-    align-items: center;
+    display: inline-block;
+    margin-right: 2rem;
 }
 
 #contact ul li i {
-    margin-right: 10px;
-    padding-right: 10px;
-    color: #333;
+    margin-right: 0.5rem;
+    color: var(--secondary-color);
+}
+
+#skills ul {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1rem;
+}
+
+#skills li {
+    background-color: var(--background-color);
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    text-align: center;
 }
 
 a {
-    color: #333;
+    color: var(--secondary-color);
     text-decoration: none;
+    transition: color 0.3s ease;
 }
 
 a:hover {
-    text-decoration: underline;
+    color: var(--primary-color);
+}
+
+@media print {
+    body {
+        background: white;
+    }
+
+    section {
+        box-shadow: none;
+        margin: 1rem 0;
+        page-break-inside: avoid;
+    }
+
+    a {
+        color: black;
+    }
 }
