@@ -1,0 +1,139 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Section from "../components/Section.astro";
+import ContactList from "../components/ContactList.astro";
+import ExperienceCard from "../components/ExperienceCard.astro";
+import CredentialItem from "../components/CredentialItem.astro";
+import SkillBadge from "../components/SkillBadge.astro";
+import { resume } from "../data/resume";
+
+const navItems = [
+  { id: "summary", label: "Summary" },
+  { id: "experience", label: "Experience" },
+  { id: "education", label: "Education" },
+  { id: "certifications", label: "Certifications" },
+  { id: "publications", label: "Publications" },
+  { id: "skills", label: "Skills" },
+  { id: "contact", label: "Contact" },
+];
+
+const title = `${resume.name} - Resume`;
+const description = resume.summary;
+---
+
+<BaseLayout title={title} description={description}>
+  <Header name={resume.name} tagline={resume.tagline} navItems={navItems} />
+
+  <main id="main-content">
+    <Section id="summary" title="Summary">
+      <p class="summary-text">{resume.summary}</p>
+    </Section>
+
+    <Section id="experience" title="Experience">
+      {resume.experience.map((entry) => <ExperienceCard entry={entry} />)}
+    </Section>
+
+    <Section id="education" title="Education">
+      {
+        resume.education.map((entry) => (
+          <CredentialItem title={entry.institution} subtitle={entry.degree} period={entry.period} />
+        ))
+      }
+    </Section>
+
+    <Section id="certifications" title="Certifications">
+      {
+        resume.certifications.map((entry) => (
+          <CredentialItem title={entry.title} href={entry.href} subtitle={entry.issuer} period={entry.period} />
+        ))
+      }
+    </Section>
+
+    <Section id="publications" title="Publications">
+      {
+        resume.publications.map((entry) => (
+          <CredentialItem
+            title={entry.title}
+            href={entry.href}
+            description={entry.description}
+            subtitle={entry.venue}
+            period={entry.period}
+          />
+        ))
+      }
+    </Section>
+
+    <Section id="skills" title="Skills">
+      <div class="skill-categories">
+        {
+          resume.skills.map((category) => (
+            <div class="skill-category">
+              <h3>{category.name}</h3>
+              <div class="badge-row">
+                {category.skills.map((skill) => (
+                  <SkillBadge label={skill} />
+                ))}
+              </div>
+            </div>
+          ))
+        }
+      </div>
+      <div class="skill-category languages">
+        <h3>Languages</h3>
+        <div class="badge-row">
+          {resume.languages.map((lang) => <SkillBadge label={`${lang.name} (${lang.level})`} />)}
+        </div>
+      </div>
+    </Section>
+
+    <Section id="contact" title="Contact">
+      <ContactList items={resume.contact} />
+    </Section>
+  </main>
+
+  <footer>
+    <p>&copy; {new Date().getFullYear()} {resume.name}</p>
+  </footer>
+</BaseLayout>
+
+<style>
+  main {
+    display: block;
+    padding-top: var(--space-4);
+  }
+
+  .summary-text {
+    text-align: justify;
+  }
+
+  footer {
+    text-align: center;
+    padding: var(--space-3);
+    color: var(--color-text-muted);
+    font-size: 0.85rem;
+  }
+
+  .skill-categories {
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  .skill-category h3 {
+    font-size: 1rem;
+    color: var(--color-ink-soft);
+    margin-bottom: var(--space-1);
+  }
+
+  .badge-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-1);
+  }
+
+  .languages {
+    margin-top: var(--space-3);
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--color-border);
+  }
+</style>

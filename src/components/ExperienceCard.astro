@@ -1,0 +1,78 @@
+---
+import type { ExperienceEntry } from "../data/resume";
+
+interface Props {
+  entry: ExperienceEntry;
+}
+
+const { entry } = Astro.props;
+---
+
+<article class="experience-card">
+  <h3>{entry.company}</h3>
+  {
+    entry.roles.map((role) => (
+      <div class="role">
+        <div class="role-header">
+          <h4>{role.title}</h4>
+          <p class="period">{role.period}</p>
+        </div>
+        <ul>
+          {role.achievements.map((achievement) => (
+            <li>{achievement}</li>
+          ))}
+        </ul>
+      </div>
+    ))
+  }
+</article>
+
+<style>
+  .experience-card + .experience-card {
+    margin-top: var(--space-4);
+  }
+
+  h3 {
+    font-size: 1.15rem;
+    color: var(--color-ink);
+  }
+
+  .role {
+    margin-top: var(--space-2);
+  }
+
+  .role-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+  }
+
+  h4 {
+    font-size: 1rem;
+    color: var(--color-ink-soft);
+  }
+
+  .period {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    font-style: italic;
+    white-space: nowrap;
+  }
+
+  ul {
+    margin-top: var(--space-1);
+    padding-left: 1.25rem;
+    list-style: disc;
+  }
+
+  li {
+    margin-bottom: var(--space-1);
+  }
+
+  li:last-child {
+    margin-bottom: 0;
+  }
+</style>

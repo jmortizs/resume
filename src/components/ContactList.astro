@@ -1,0 +1,54 @@
+---
+import Icon from "./Icon.astro";
+import type { ContactLink } from "../data/resume";
+
+interface Props {
+  items: ContactLink[];
+}
+
+const { items } = Astro.props;
+---
+
+<ul class="contact-list">
+  {
+    items.map((item) => (
+      <li>
+        <Icon name={item.icon} />
+        {item.href ? (
+          <a href={item.href} target={item.href.startsWith("http") ? "_blank" : undefined} rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}>
+            {item.label}
+          </a>
+        ) : (
+          <span>{item.label}</span>
+        )}
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .contact-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    list-style: none;
+  }
+
+  .contact-list li {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    color: var(--color-text-muted);
+  }
+
+  .contact-list :global(.icon) {
+    color: var(--color-accent-dark);
+  }
+
+  @media (max-width: 768px) {
+    .contact-list {
+      flex-direction: column;
+      gap: var(--space-1);
+    }
+  }
+</style>
